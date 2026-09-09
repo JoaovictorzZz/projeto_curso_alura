@@ -2,12 +2,16 @@
 from fastapi import FastAPI
 #importando HMTL response pra informar pra rota que se trata de um html
 from fastapi.responses import HTMLResponse
+#
+from app.rotas import rcliente
 #Criando uma instância da aplicação
 app = FastAPI(
     title='Techlog Solutions API',
     description='CRM para Techlog Solutions',
     version='1.0.0',
 )
+#importando e incluindo nossa roda Router
+app.include_router(rcliente.router)
 #Rotas
 @app.get('/')
 async def health_check():
