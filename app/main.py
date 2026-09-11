@@ -13,6 +13,7 @@ app = FastAPI(
 #rotas
 #importando e incluindo nossa rotas Router
 app.include_router(rcliente.router)
+
 #
 @app.get('/')
 async def health_check():
