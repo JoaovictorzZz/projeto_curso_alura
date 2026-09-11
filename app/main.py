@@ -10,9 +10,10 @@ app = FastAPI(
     description='CRM para Techlog Solutions',
     version='1.0.0',
 )
-#importando e incluindo nossa roda Router
+#rotas
+#importando e incluindo nossa rotas Router
 app.include_router(rcliente.router)
-#Rotas
+#
 @app.get('/')
 async def health_check():
      return {"status": "OK"}
