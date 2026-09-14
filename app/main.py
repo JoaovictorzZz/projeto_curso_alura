@@ -12,7 +12,7 @@ app = FastAPI(
 )
 #rotas
 #importando e incluindo nossa rotas Router
-app.include_router(rcliente.router)
+app.include_router(rcliente.router_clientes)
 
 #
 @app.get('/')
