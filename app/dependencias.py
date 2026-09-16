@@ -2,7 +2,7 @@
 from fastapi import Depends
 from typing import Annotated 
 #
-from app.banco_de_dados.local import BancoDeDadosLocal
+from app.banco_de_dados.banco_local import BancoDeDadosLocal
 from app.banco_de_dados.cliente_repositorio import ClienteRepositorio
 
 banco_de_dados = BancoDeDadosLocal()

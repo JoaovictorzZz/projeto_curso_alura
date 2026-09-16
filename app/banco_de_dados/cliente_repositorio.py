@@ -7,7 +7,7 @@
     """
 #gerenciar conexão com o banco , so que com as querys do cliente
 
-from app.banco_de_dados.local import BancoDeDadosLocal
+from app.banco_de_dados.banco_local import BancoDeDadosLocal
 from app.modelos.cliente import Cliente
 
 class ClienteRepositorio:
@@ -33,7 +33,7 @@ class ClienteRepositorio:
             cursor.execute(
                 'SELECT id, nome, email, telefone FROM clientes WHERE id=?',(cliente_id,)
             )
-            linha = cursor.fetchone()
+            linha = cursor.fetchone()#pegando somente a primeira linha
             if linha:
                 return Cliente(id_=linha[0], nome=linha[1], email=linha[2], telefone=linha[3])
             else:

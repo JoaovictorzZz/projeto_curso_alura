@@ -14,7 +14,7 @@ class BancoDeDadosLocal():
     def __init__(self,nome_arquivo = "techlog.db"):
         self.nome_arquivo = nome_arquivo
         self.inicializar_banco()
-    #controlando o contexto pra lidar com a infraestrutura do banco e as rotas do FASTAPI so usa o banco
+    #controlando o contexto pra lidar com a infraestrutura do banco. - as rotas do FASTAPI so usa o banco sem se preocupar 
     @contextmanager
     def conectar(self):
         conexao = sqlite3.connect(self.nome_arquivo)
@@ -23,13 +23,14 @@ class BancoDeDadosLocal():
              yield conexao
              #salva
              conexao.commit()
-        except Exception as e:
+        except Exception:
              #se der erro desfaz
              conexao.rollback()
              raise
         finally:
              #fechando a conexão
              conexao.close()
+    #aqui eu so tenho o trabalho de chamar a conexao do banco e ja sair metendo comandos SQL no caso aqui crirar a tabela
     def inicializar_banco(self):
             with self.conectar() as conexao:
                 cursor = conexao.cursor()
