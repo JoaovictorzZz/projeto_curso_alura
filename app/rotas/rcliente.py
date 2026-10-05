@@ -31,6 +31,6 @@ async def deletar_cliente(cliente_id:int, repo:RepoCliente):
     return await repo.remove_cliente(cliente_id)
 #atualizar cliente
 @router_clientes.put('/', response_model= Cliente | None )
-async def atualiza_cliente(cliente:Cliente,repo:RepoCliente):
+async def atualiza_cliente(cliente:ClienteCriar,repo:RepoCliente):
     return await repo.atualizar_cliente(cliente)
     

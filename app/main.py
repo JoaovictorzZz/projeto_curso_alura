@@ -1,6 +1,10 @@
-#Importando o framework FastAPI
-from fastapi import FastAPI
-#importando HMTL response pra informar pra rota que se trata de um html
+#Importando o framework FastAPI, e Request(requisicao do usuario)
+from fastapi import FastAPI,Request
+# Jinja permite renderizar HTML com dados do Python
+from fastapi.templating import Jinja2Templates
+# Permite usar arquivos CSS, JS e imagens
+from fastapi.staticfiles import StaticFiles
+# Informa que a rota retorna HTML
 from fastapi.responses import HTMLResponse
 #
 from app.rotas import rcliente
@@ -10,28 +14,25 @@ app = FastAPI(
     description='CRM para Techlog Solutions',
     version='1.0.0',
 )
-#rotas
+# Define a pasta onde ficam os HTMLs
+templates = Jinja2Templates(directory='templates')
+# Disponibiliza CSS, JS e imagens da pasta static
+app.mount("/static",StaticFiles(directory="static"), name="static")
 #importando e incluindo nossa rotas Router
 app.include_router(rcliente.router_clientes,)
 
 
-#
-@app.get('/')
+##rotas
+#padrao de mercado - vereficar status da  api 
+@app.get('/health')
 async def health_check():
      return {"status": "OK"}
 #
-@app.get('/front', response_class=HTMLResponse)
-async def front_page():
-      html_content = """
-    <html>
-        <head>
-            <title>Techlog Solutions</title>
-        </head>
-        <body>
-            <h1>🔪 Techlog Solutions</h1>
-            <p>Sistema de Gestão de Ordens de Serviço</p>
-            <p>Status: <strong>Operacional</strong></p>
-        </body>
-    </html>
-    """
-      return html_content
+@app.get("/", response_class=HTMLResponse)
+async def index_page(request: Request):
+    return templates.TemplateResponse(
+         request=request,
+         name="index.html",
+         context={"titulo":"Techlog Solutions", "versao":"1.0.0"}
+    )
+ 

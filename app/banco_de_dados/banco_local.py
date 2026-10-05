@@ -22,14 +22,14 @@ class BancoDeDadosLocal():
              yield conexao
              #salva
              conexao.commit()
-        except Exception:
+        except Exception as e:
              #se der erro desfaz
              conexao.rollback()
-             raise
+             raise e 
         finally:
              #fechando a conexão
              conexao.close()
-    #aqui eu so tenho o trabalho de chamar a conexao do banco e ja sair metendo comandos SQL no caso aqui crirar a tabela
+    #aqui eu so tenho o trabalho de chamar a conexao do banco e ja sair metendo comandos SQL no caso aqui criar a tabela
     def inicializar_banco(self):
             with self.conectar() as conexao:
                 cursor = conexao.cursor()
