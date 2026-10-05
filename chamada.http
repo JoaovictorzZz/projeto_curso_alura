@@ -1,0 +1,13 @@
+GET http://localhost:8000/clientes 
+###
+POST http://localhost:8000/clientes
+Content-Type: application/json
+
+{
+    "nome": "Naruto Uzumaki", 
+    "email": "naruto@gamil.com",
+    "telefone": "132452345"
+}
+###
+
+DELETE http://localhost:8000/clientes/12

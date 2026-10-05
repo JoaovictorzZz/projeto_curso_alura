@@ -13,7 +13,6 @@ from contextlib import contextmanager
 class BancoDeDadosLocal():
     def __init__(self,nome_arquivo = "techlog.db"):
         self.nome_arquivo = nome_arquivo
-        self.inicializar_banco()
     #controlando o contexto pra lidar com a infraestrutura do banco. - as rotas do FASTAPI so usa o banco sem se preocupar 
     @contextmanager
     def conectar(self):
