@@ -54,10 +54,9 @@ class ClienteRepositorio:
             cursor.execute('DELETE FROM clientes WHERE id=?',(cliente_id,))
         return {f"Usuario {cliente_id} removido com sucesso"}
     #atualizar cliente
-    async def atualizar_cliente(self,cliente:Cliente) -> Cliente | None:
+    async def atualizar_cliente(self,cliente_id:int,cliente:ClienteCriar) -> Cliente | None:
         with self.db.conectar() as conexao:
             cursor = conexao.cursor()
-            cursor.execute('UPDATE clientes SET nome =?, email =? , telefone = ? WHERE id=?',(cliente.nome,cliente.email,cliente.telefone,cliente.id_))
-            return cliente
-        return {'Usuario atualizado com sucesso'}
+            cursor.execute('UPDATE clientes SET nome =?, email =? , telefone = ? WHERE id=?',(cliente.nome,cliente.email,cliente.telefone,cliente_id))
+            return Cliente(id_=cliente_id,nome=cliente.nome,email=cliente.email,telefone=cliente.telefone)
             

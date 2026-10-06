@@ -19,8 +19,8 @@ templates = Jinja2Templates(directory='templates')
 # Disponibiliza CSS, JS e imagens da pasta static
 app.mount("/static",StaticFiles(directory="static"), name="static")
 #importando e incluindo nossa rotas Router
-app.include_router(rcliente.router_clientes,)
-
+app.include_router(rcliente.router_clientes)
+app.include_router(rcliente.router_front)
 
 ##rotas
 #padrao de mercado - vereficar status da  api 

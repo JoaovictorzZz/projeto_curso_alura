@@ -4,6 +4,8 @@
     ├── commit
     ├── rollback
     └── fechar
+└── criar padrao da tabela no banco
+
 
 """
 import sqlite3
