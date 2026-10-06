@@ -10,14 +10,10 @@ from app.banco_de_dados.banco_local import BancoDeDadosLocal
 from app.banco_de_dados.cliente_repositorio import ClienteRepositorio
 from app.dependencias import RepoCliente
 
-#Criando uma instância do Router
+#ROTAS CLIENTES
 router_clientes = APIRouter(
     prefix="/api/clientes"
 )
-router_front = APIRouter(
-    prefix="/clientes"
-)
-templates = Jinja2Templates(directory='templates')
 #rota do router tipo get  - indicando que vai retornar uma lista nao uma string qualquer
 #perceba que uso o response_model
 @router_clientes.get('/', response_model= list[Cliente])
@@ -40,8 +36,12 @@ async def deletar_cliente(cliente_id:int, repo:RepoCliente):
 async def atualiza_cliente(cliente_id:int,cliente:ClienteCriar,repo:RepoCliente):
     return await repo.atualizar_cliente(cliente_id,cliente)
 
-   
-#rotaa do front
+#ROTAS MOSTRAR FRONT
+router_front = APIRouter(
+    prefix="/clientes"
+)
+templates = Jinja2Templates(directory='templates')
+
 @router_front.get('/', response_class=HTMLResponse)
 async def pagina_list_clientes(request:Request,repo:RepoCliente):
     lista_clientes = await repo.listar_cliente()
