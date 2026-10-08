@@ -7,7 +7,8 @@ from fastapi.staticfiles import StaticFiles
 # Informa que a rota retorna HTML
 from fastapi.responses import HTMLResponse
 #
-from app.rotas import rcliente
+from app.rotas import rotas_clientes,rotas_front,rota_front_login
+
 #Criando uma instância da aplicação
 app = FastAPI(
     title='Techlog Solutions API',
@@ -19,8 +20,9 @@ templates = Jinja2Templates(directory='templates')
 # Disponibiliza CSS, JS e imagens da pasta static
 app.mount("/static",StaticFiles(directory="static"), name="static")
 #importando e incluindo nossa rotas Router
-app.include_router(rcliente.router_clientes)
-app.include_router(rcliente.router_front)
+app.include_router(rotas_clientes.router_clientes)
+app.include_router(rotas_front.router_front)
+app.include_router(rota_front_login.router_login)
 
 ##rotas
 #padrao de mercado - vereficar status da  api 
