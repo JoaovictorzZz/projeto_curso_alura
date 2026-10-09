@@ -1,6 +1,7 @@
 from fastapi import APIRouter,Request,Form
 from fastapi.responses import HTMLResponse,RedirectResponse
 from fastapi.templating import Jinja2Templates
+from app.dependencias import RepoUsuario
 #ROTAS LOGIN 
 router_login = APIRouter(
     prefix="/login"
@@ -16,8 +17,9 @@ async def pagina_login(request:Request):
     )
 #
 @router_login.post("/",response_class=HTMLResponse)
-async def login(request:Request, email:str = Form(...), senha:str = Form(...)):
-    if email == "adm@techlog.com.br" and senha == "senha123":
+async def login(repo:RepoUsuario, request:Request, email:str = Form(...),senha:str = Form(...)):
+    usuario = await repo.buscar_usuarios_email_senha(email,senha)
+    if usuario:
         response = RedirectResponse(url="/", status_code=303)
         response.set_cookie(key="session_token", value="token_senha", httponly=True)
         return response

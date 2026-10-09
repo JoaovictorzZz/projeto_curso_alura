@@ -7,7 +7,7 @@ from fastapi.staticfiles import StaticFiles
 # Informa que a rota retorna HTML
 from fastapi.responses import HTMLResponse
 #
-from app.rotas import rotas_clientes,rotas_front,rota_front_login
+from app.rotas import rotas_clientes,rotas_front,rota_front_login,rota_registro
 
 #Criando uma instância da aplicação
 app = FastAPI(
@@ -23,7 +23,7 @@ app.mount("/static",StaticFiles(directory="static"), name="static")
 app.include_router(rotas_clientes.router_clientes)
 app.include_router(rotas_front.router_front)
 app.include_router(rota_front_login.router_login)
-
+app.include_router(rota_registro.router_registro)
 ##rotas
 #padrao de mercado - vereficar status da  api 
 @app.get('/health')
