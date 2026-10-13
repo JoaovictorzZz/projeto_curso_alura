@@ -7,8 +7,10 @@ from fastapi.staticfiles import StaticFiles
 # Informa que a rota retorna HTML
 from fastapi.responses import HTMLResponse
 #
+from fastapi.responses import RedirectResponse
+#
 from app.rotas import rotas_clientes,rotas_front,rota_front_login,rota_registro
-
+from app.autenticacao_middleware import AutenticacaoToken
 #Criando uma instância da aplicação
 app = FastAPI(
     title='Techlog Solutions API',
@@ -24,6 +26,8 @@ app.include_router(rotas_clientes.router_clientes)
 app.include_router(rotas_front.router_front)
 app.include_router(rota_front_login.router_login)
 app.include_router(rota_registro.router_registro)
+#adicionando middleware - camada de proteção das rotas
+app.add_middleware(AutenticacaoToken)
 ##rotas
 #padrao de mercado - vereficar status da  api 
 @app.get('/health')
@@ -37,4 +41,8 @@ async def index_page(request: Request):
          name="index.html",
          context={"titulo":"Techlog Solutions", "versao":"1.0.0"}
     )
- 
+@app.get("/logout")
+async def logout():
+     response = RedirectResponse(url="/login",status_code=303)
+     response.delete_cookie("session_token")
+     return response     

@@ -17,7 +17,6 @@ async def exibir_registro(request: Request):
         name="registro.html"
     )
 
-
 # Registrar usuário
 @router_registro.post("/", response_class=HTMLResponse)
 async def registrar_usuario(
@@ -59,7 +58,7 @@ async def registrar_usuario(
         )
 
     usuario_criar = CriarUsuario(
-        nome=nome,
+       nome=nome, 
         email=email,
         senha=senha
     )

@@ -5,7 +5,8 @@
     ├── UPDATE
     └── DELETE
     """
-#gerenciar conexão com o banco , so que com as querys do cliente
+#gerenc
+# iar conexão com o banco , so que com as querys do cliente
 
 from app.banco_de_dados.banco_local import BancoDeDadosLocal
 from app.modelos.cliente import Cliente,ClienteCriar
