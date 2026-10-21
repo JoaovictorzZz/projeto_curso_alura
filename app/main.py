@@ -17,6 +17,7 @@ app = FastAPI(
     description='CRM para Techlog Solutions',
     version='1.0.0',
 )
+
 # Define a pasta onde ficam os HTMLs
 templates = Jinja2Templates(directory='templates')
 # Disponibiliza CSS, JS e imagens da pasta static
@@ -28,6 +29,7 @@ app.include_router(rota_front_login.router_login)
 app.include_router(rota_registro.router_registro)
 #adicionando middleware - camada de proteção das rotas
 app.add_middleware(AutenticacaoToken)
+
 ##rotas
 #padrao de mercado - vereficar status da  api 
 @app.get('/health')

@@ -5,12 +5,8 @@
     ├── UPDATE
     └── DELETE
     """
-#gerenc
-# iar conexão com o banco , so que com as querys do cliente
-
 from app.banco_de_dados.banco_local import BancoDeDadosLocal
 from app.modelos.cliente import Cliente,ClienteCriar
-
 class ClienteRepositorio:
     def __init__(self, banco_de_dados:BancoDeDadosLocal):
         self.db = banco_de_dados
@@ -44,20 +40,19 @@ class ClienteRepositorio:
         with self.db.conectar() as conexao:
             cursor = conexao.cursor()
             cursor.execute('INSERT INTO clientes (nome,email,telefone) VALUES(?,?,?)',(cliente.nome,cliente.email,cliente.telefone))
-            novo_id = cursor.lastrowid
-            return Cliente(id_=novo_id,nome=cliente.nome,email=cliente.email,telefone=cliente.telefone)
-        return {'Cliente cadastrado com sucesso'}
+            id_novo = cursor.lastrowid
+            return Cliente(id_=id_novo,nome=cliente.nome,email=cliente.email,telefone=cliente.telefone)
         
     #remover cliente
     async def remove_cliente(self,cliente_id:int) -> Cliente | None:
         with self.db.conectar() as conexao:
             cursor = conexao.cursor()
-            cursor.execute('DELETE FROM clientes WHERE id=?',(cliente_id,))
-        return {f"Usuario {cliente_id} removido com sucesso"}
+            cursor.execute('DELETE FROM clientes WHERE id=?',(cliente_id))
+            return cliente_id
     #atualizar cliente
     async def atualizar_cliente(self,cliente_id:int,cliente:ClienteCriar) -> Cliente | None:
         with self.db.conectar() as conexao:
             cursor = conexao.cursor()
-            cursor.execute('UPDATE clientes SET nome =?, email =? , telefone = ? WHERE id=?',(cliente.nome,cliente.email,cliente.telefone,cliente_id))
+            cursor.execute('UPDATE FROM clientes SET nome=?, email=?,telefone=? WHERE id=?',(cliente.nome,cliente.email,cliente.telefone,cliente_id))
             return Cliente(id_=cliente_id,nome=cliente.nome,email=cliente.email,telefone=cliente.telefone)
             

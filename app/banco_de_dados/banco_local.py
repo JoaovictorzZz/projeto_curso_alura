@@ -5,8 +5,6 @@
     ├── rollback
     └── fechar
 └── cria tabelas como USUARIO e CLIENTES
-
-
 """
 import sqlite3
 #
@@ -16,7 +14,7 @@ class BancoDeDadosLocal():
     def __init__(self,nome_arquivo = "techlog.db"):
         self.nome_arquivo = nome_arquivo
         self.inicializar_banco()
-    #controlando o contexto pra lidar com a infraestrutura do banco. - as rotas do FASTAPI so usa o banco sem se preocupar 
+    #controlando o contexto pra lidar com a infraestrutura do banco. - as rotas do FASTAPI so usa o banco sem se preocupar - pra não precisar fazer (commit) - (close) - (rollback)
     @contextmanager
     def conectar(self):
         conexao = sqlite3.connect(self.nome_arquivo)
@@ -32,7 +30,7 @@ class BancoDeDadosLocal():
         finally:
              #fechando a conexão
              conexao.close()
-    #aqui eu so tenho o trabalho de chamar a conexao do banco e ja sair metendo comandos SQL no caso aqui criar a tabela
+    #aqui eu so tenho o trabalho de chamar a conexao do banco e ja sair metendo comandos SQL no caso aqui criar as tabelas
     def inicializar_banco(self):
             with self.conectar() as conexao:
                 cursor = conexao.cursor()
