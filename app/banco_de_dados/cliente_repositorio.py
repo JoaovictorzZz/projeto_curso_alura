@@ -44,15 +44,15 @@ class ClienteRepositorio:
             return Cliente(id_=id_novo,nome=cliente.nome,email=cliente.email,telefone=cliente.telefone)
         
     #remover cliente
-    async def remove_cliente(self,cliente_id:int) -> Cliente | None:
+    async def remover_cliente(self,cliente_id:int) -> Cliente | None:
         with self.db.conectar() as conexao:
             cursor = conexao.cursor()
-            cursor.execute('DELETE FROM clientes WHERE id=?',(cliente_id))
+            cursor.execute('DELETE FROM clientes WHERE id=?',(cliente_id, ))
             return cliente_id
     #atualizar cliente
     async def atualizar_cliente(self,cliente_id:int,cliente:ClienteCriar) -> Cliente | None:
         with self.db.conectar() as conexao:
             cursor = conexao.cursor()
-            cursor.execute('UPDATE FROM clientes SET nome=?, email=?,telefone=? WHERE id=?',(cliente.nome,cliente.email,cliente.telefone,cliente_id))
+            cursor.execute('UPDATE FROM clientes SET nome=,email=?,telefone=? WHERE id=?',(cliente.nome,cliente.email,cliente.telefone,cliente_id))
             return Cliente(id_=cliente_id,nome=cliente.nome,email=cliente.email,telefone=cliente.telefone)
             

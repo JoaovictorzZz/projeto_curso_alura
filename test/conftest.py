@@ -1,20 +1,41 @@
 from contextlib import nullcontext
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock,AsyncMock,Mock
 import pytest
 
 
-# Prepara os objetos simulados para os testes
+from contextlib import contextmanager
+from unittest.mock import MagicMock
+import pytest
+
 @pytest.fixture
-def banco_simulado():
-    banco = MagicMock()
-    conexao = MagicMock()
-    cursor = MagicMock()
+def mock_banco_dados():
+    class MockBancoDeDadosLocal:
+        def __init__(self):
+            self.conexao = MagicMock()
+            self.cursor = MagicMock()
+            self.conexao.cursor.return_value = self.cursor
 
-    # Simula a conexão com o banco de dados
-    banco.conectar.return_value = nullcontext(conexao)
+        @contextmanager
+        def conectar(self):
+            yield self.conexao
 
-    # Simula o cursor que executa comandos SQL
-    conexao.cursor.return_value = cursor
+    return MockBancoDeDadosLocal()
 
-    # Disponibiliza os objetos para o teste
-    return banco, cursor
+
+@pytest.fixture
+def mock_cliente_repositorio():
+    mock_repo = Mock()
+    mock_repo.listar_cliente = AsyncMock()
+    mock_repo.obter_cliente = AsyncMock()
+    mock_repo.criar_cliente = AsyncMock()
+    mock_repo.atualizar_cliente = AsyncMock()
+    mock_repo.deletar_cliente = AsyncMock()
+    return mock_repo
+
+@pytest.fixture
+def mock_usuario_repositorio():
+    mock_repo = Mock()
+    mock_repo.buscar_usuario_por_email = AsyncMock()
+    mock_repo.buscar_usuario_por_email_senha = AsyncMock()
+    mock_repo.criar_usuario = AsyncMock()
+    return mock_repo
