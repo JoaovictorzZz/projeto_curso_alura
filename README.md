@@ -1,3 +1,8 @@
+# Instalar aplicação
+pip install -r requirements.txt
+
+# Instalar ambiente de desenvolvimento e testes
+pip install -r requirements-dev.txt
 # Techlog Solutions - CRM
 
 A empresa Techlog Solutions nos contratou para criar um website para cadastrar seus clientes e suas ordens de serviço. Para isso, vamos utilizar Python junto com FastAPI, desenvolvendo tanto o backend quanto o frontend
