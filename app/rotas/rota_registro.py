@@ -27,12 +27,7 @@ async def registrar_usuario(
     senha: str = Form(...),
     confirma_senha: str = Form(...)
 ):
-    data = {
-        "nome": nome,
-        "email": email,
-        "senha": senha,
-        "confirma_senha": confirma_senha
-    }
+    data = {"nome": nome, "email": email}
 
     if not all([nome, email, senha, confirma_senha]):
         return templates.TemplateResponse(

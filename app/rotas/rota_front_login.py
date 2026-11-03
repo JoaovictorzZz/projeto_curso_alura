@@ -27,5 +27,5 @@ async def login(repo:RepoUsuario, request:Request, email:str = Form(...),senha:s
         return templates.TemplateResponse(
             request=request,
             name="login.html",
-            context={"email":email, "senha":senha, "error": "Credencias Invalidas"}
+            context={"email": email, "error": "Credencias Invalidas"}
         )

@@ -25,3 +25,11 @@ A empresa Techlog Solutions nos contratou para criar um website para cadastrar s
 - Uvicorn
 - Sqlite
 - Pytests
+
+## Senhas de usuários
+
+As senhas são armazenadas como hashes Argon2 usando `pwdlib`; a aplicação não
+precisa nem deve descriptografar ou exibir a senha original. No cadastro, o
+repositório gera o hash antes de gravar o usuário. No login, ele busca o hash
+pelo e-mail e verifica a senha enviada com `PasswordHash.verify`.
+
